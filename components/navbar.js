@@ -20,7 +20,10 @@ export default function Navbar() {
         </li>
         <li>
           <Link href="/Settings">Settings</Link>
-        </li> 
+        </li>
+        <li class="signin">
+          <Link href="/">Sign In</Link>
+        </li>
       </ul>
     </nav>
     
