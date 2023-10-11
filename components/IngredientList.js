@@ -6,7 +6,7 @@ const IngredientList = ({ ingredient, onAddIngredient, onRemoveIngredient }) => 
   //Amount needs to be dynamic
   return (
     <li class="foodList" key={ingredient.id}>
-      {ingredient.name} (Amt: {ingredient.quantity})
+      {ingredient.name} (Amt: {ingredient.quantity} ID: {ingredient.id})
   
       <button onClick={() => onAddIngredient(ingredient)}>Add</button>
       <button onClick={() => onRemoveIngredient(ingredient)}>Remove</button>

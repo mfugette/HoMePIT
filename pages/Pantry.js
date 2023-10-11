@@ -1,3 +1,20 @@
+/*class Ingredient {
+  constructor(name, quantity, threshold, expiration, servingSize, calories, protein, fat, carb, purchasedServings, cost, location) {
+    this.name = name;
+    this.quantity = quantity;
+    this.threshold = threshold;
+    this.expiration = expiration;
+    this.servingSize = servingSize;
+    this.calories = calories;
+    this.protein = protein;
+    this.fat = fat;
+    this.carb = carb;
+    this.purchasedServings = purchasedServings;
+    this.cost = cost;
+    this.location = location;
+  }
+}*/
+
 import React from 'react';
 import IngredientList from 'components/IngredientList.js';
 
@@ -11,45 +28,61 @@ export default function Pantry() {
   const [ingredientExpiration, setIngredientExpiration] = React.useState('');
   const [ingredientServingSize, setIngredientServingSize] = React.useState('');
   const [ingredientCalories, setIngredientCalories] = React.useState('');
-  const [ingredientProtein, setIngredientProtien] = React.useState('');
+  const [ingredientProtein, setIngredientProtein] = React.useState('');
   const [ingredientFat, setIngredientFat] = React.useState('');
   const [ingredientCarb, setIngredientCarb] = React.useState('');
   const [ingredientPurchasedServings, setIngredientPurchasedServings] = React.useState('');
   const [ingredientCost, setIngredientCost] = React.useState('');
   const [ingredientLocation, setIngredientLocation] = React.useState('');
 
+  // Defining an Ingredient
+  const ingredient = {
+    id: ingredients.length + 1,
+    name: ingredientName,
+    quantity: ingredientQuantity,
+    threshold: ingredientThreshold,
+    expiration: ingredientExpiration,
+    servingSize: ingredientServingSize,
+    calories: ingredientCalories,
+    protein: ingredientProtein,
+    fat: ingredientFat,
+    carb: ingredientCarb,
+    purchasedServings: ingredientPurchasedServings,
+    cost: ingredientCost,
+    location: ingredientLocation,
+    //substitution[]: Ingredient, 
+  };
 
+
+  //THIS COMES FROM Pantry.js
   //Method for Adding Ingredients
-  const addIngredient = () => {
-    const ingredient = {
-      id: ingredients.length + 1,
-      name: ingredientName,
-      quantity: ingredientQuantity,
-      threshold: ingredientThreshold,
-      expiration: ingredientExpiration,
-      servingSize: ingredientServingSize,
-      calories: ingredientCalories,
-      protein: ingredientProtein,
-      fat: ingredientFat,
-      carb: ingredientCarb,
-      purchasedServings: ingredientPurchasedServings,
-      cost: ingredientCost,
-      location: ingredientLocation,
-      //substitution[]: Ingredient,  
-      
-     };
-   setIngredients([...ingredients, ingredient]);
+  const addIngredients = (myIngredient) => {
+    console.log("My ingred:", myIngredient);
+
+    setIngredients([...ingredients, ingredient]);
   }
 
-  //Method for Removing Ingredients
-  const removeIngredient = () => {
-    setIngredients(ingredients.filter((ingredient) => ingredient.id !== ingredient.id));
+  //THIS COMES FROM IngreidentList.js (move?)
+  const addIngredient = (myIngredient) => {
+    console.log("My ingred:", myIngredient.name);
+      
+    setIngredients([...ingredients, ingredient]);
+    
   }
+
+  //THIS COMES FROM IngreidentList.js
+  //Method for Removing Ingredients (work on this)
+  const removeIngredient = (myIngredient) => {
+    console.log("My ingred:", myIngredient.name); // why different ?
+    setIngredients(ingredients.filter((ingredient) => ingredient.id !== myIngredient.id ));
+  }
+
+  const updateIngredientQuantity = (ingredientID, newQuantity) => { }
 
   // Input boxes for adding an ingredient & list of ingredients in Pantry. Needs to be worked on.
+  console.log(ingredients);
   return (
     <div>
-        <h1>Pantry</h1>
       <div class="add">
         <h3>Add Ingredient</h3>
         <input type="text" placeholder="Name" value={ingredientName} onChange={(event) => setIngredientName(event.target.value)} />
@@ -58,30 +91,31 @@ export default function Pantry() {
         <input type="text" placeholder="Expiration Date" value={ingredientExpiration} onChange={(event) => setIngredientExpiration(event.target.value)} />
         <input type="text" placeholder="Serving Size" value={ingredientServingSize} onChange={(event) => setIngredientServingSize(event.target.value)} />
         <input type="text" placeholder="Calories" value={ingredientCalories} onChange={(event) => setIngredientCalories(event.target.value)} />
-        <input type="text" placeholder="Protein" value={ingredientProtein} onChange={(event) => setIngredientProtien(event.target.value)} />
+        <input type="text" placeholder="Protein" value={ingredientProtein} onChange={(event) => setIngredientProtein(event.target.value)} />
         <input type="text" placeholder="Fat" value={ingredientFat} onChange={(event) => setIngredientFat(event.target.value)} />
         <input type="text" placeholder="Carbs" value={ingredientCarb} onChange={(event) => setIngredientCarb(event.target.value)} />
         <input type="text" placeholder="Servings Purchased" value={ingredientPurchasedServings} onChange={(event) => setIngredientPurchasedServings(event.target.value)} />
         <input type="text" placeholder="Cost" value={ingredientCost} onChange={(event) => setIngredientCost(event.target.value)} />
         <input type="text" placeholder="Location Purchased" value={ingredientLocation} onChange={(event) => setIngredientLocation(event.target.value)} />
-        <input type="text" placeholder="Substitution"/>
-        <button type="button" onClick={addIngredient}>Add Ingredient</button>
-      
+        <input type="text" placeholder="Substitution" />
+        <button type="button" onClick={addIngredients}>Add Ingredient</button>
+
       </div>
 
       <div>
+        <h3>Your Ingredients:</h3>
         <ul class="foodList">
-        {ingredients.map((ingredient) => (
-          <IngredientList
-            key={ingredient.id}
-            ingredient={ingredient}
-            onAddIngredient={addIngredient}
-            onRemoveIngredient={removeIngredient}
-          />
-        ))}
-      </ul>
+          {ingredients.map((ingredient) => (
+            <IngredientList
+              key={ingredient.id}
+              ingredient={ingredient}
+              onAddIngredient={addIngredient}
+              onRemoveIngredient={removeIngredient}
+            />
+          ))}
+        </ul>
       </div>
     </div>
-    
+
   );
 }
